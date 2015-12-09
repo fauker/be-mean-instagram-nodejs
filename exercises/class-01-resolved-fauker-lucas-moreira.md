@@ -1,6 +1,9 @@
 # Node.js - Aula 01 - Exercício
+
 **user:** [fauker](https://github.com/fauker)
+
 **autor:** LUCAS DA SILVA MOREIRA
+
 **date:** //execute Date.now() e coloque o resultado aqui
 
 ## Explique como um processo síncrono e assíncrono roda no Node.js, dê um exemplo para cada.
