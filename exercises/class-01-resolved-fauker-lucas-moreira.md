@@ -24,9 +24,7 @@
 
 ## Como você venderia o peixe do Node.js na sua empresa para tentar convencer seu chefe da sua adoção?
 
-```
 Bom, eu defenderia os casos de sucesso de empresas que adotaram o Nodejs, como o Paypal, Netflix etc. Também eu poderia fazer a mesma aplicação que hoje está em produção, só que em Nodejs e comparar os ganhos. Com o argumento da comparação de ganhos eu acho que poderia qualquer chefe, investidor ficaria convencido.
-```
 
 ## Qual a versão do seu `node`?
 
