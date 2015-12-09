@@ -33,7 +33,7 @@ O termo I/O Async quer dizer que qualquer leitura ou escrita de dados não esper
 ##### Links da Aula
 - [Vídeo da Aula](https://www.youtube.com/watch?v=OgfO37F6mdg)
 - [Exercício Solicitado](https://github.com/Webschool-io/be-mean-instagram/blob/master/Apostila/classes/nodejs/exercises/class-01.md)
-- [Exercício Resolvido - Pendente](https://github.com/fauker/be-mean-instagram-nodejs/blob/master/exercises/class-01-resolved-fauker-lucas-moreira.md)
+- [Exercício Resolvido](https://github.com/fauker/be-mean-instagram-nodejs/blob/master/exercises/class-01-resolved-fauker-lucas-moreira.md)
 
 
 
