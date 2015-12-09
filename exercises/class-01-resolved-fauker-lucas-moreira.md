@@ -10,7 +10,7 @@
 
 ## Como o V8 executa JavaScript? Demonstre 1 exemplo com código ou imagem.
 
-![v8](http://cdn.osxdaily.com/wp-content/uploads/2013/07/dancing-banana.gif)
+![v8](https://github.com/fauker/be-mean-instagram-nodejs/blob/master/images/v8-code.png)
 
 ## Qual a diferença entre um sistema single para um multi-thread?
 
