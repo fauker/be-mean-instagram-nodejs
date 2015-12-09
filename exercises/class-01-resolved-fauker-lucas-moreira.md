@@ -26,19 +26,15 @@ Fazendo uma analogia com o mundo real e processos assíncronos, pense na mesma f
 
 ## Qual a diferença entre um sistema single para um multi-thread?
 
-```
 Em um sistema que suporta apenas Single Thread, apenas uma tarefa será executada por vez, caso as tarefas sejam síncronas. E, enquanto uma tarefa está sendo executada, todo o sistema para esperando essa Thread terminar. Ou seja, o processamento é bloqueado. 
 
 Já em um sistema Multi-Thread, se uma Thread estiver sendo executada, outra Thread pode ser criada para que o processamento não seja bloqueado.
-```
 
 ## Como a Thread Pool tem um tamanho padrão de 4, o que acontece se você enviar 5 requisições ao banco?
 
-```
 Por padrão a thread pool é de 4 no Node, a 5 requisição será incluída a idle thread oque seria essa idle thread nada mais é do que as requisições que estão aguardando uma das 4 requisições que estão na thread pool serem executadas para as mesmas poderem serem executadas.
 
 Caso seja feita a quinta requisição ao banco, essa requisição será incluída no **Idle Thread** esperando sua vez se ser jogada no **Thread Pool** e ser executada.
-```
 
 ## Como você venderia o peixe do **Node.js** na sua empresa para tentar convencer seu chefe da sua adoção?
 
