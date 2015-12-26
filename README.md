@@ -14,13 +14,13 @@ Sim... o Nodejs foi feito em cima do V8. Mas o que é V8 especificamente? Ele na
 
 ## Single Thread
 
-O Nodejs trabalha *apenas* com uma thread, mas outras podem ser criadas. Isso economiza muita memória e CPU. Para conseguir gerenciar tudo co mapenas uma Thread, existe fila infinita que recebe todos os eventos emitidos pelo Nodejs e os executa assincronamente. Esse processo é chamado de **Event Loop*.
+O Nodejs trabalha *apenas* com uma thread, mas outras podem ser criadas. Isso economiza muita memória e CPU. Para conseguir gerenciar tudo com apenas uma Thread, existe uma fila infinita que recebe todos os eventos emitidos pelo Nodejs e os executa assincronamente. Esse processo é chamado de **Event Loop**.
 
 ## I/O Async
 
 Qualquer função do Nodejs, por padrão, é assíncrona. 
 
-O termo I/O Async quer dizer que qualquer leitura ou escrita de dados não espera seu processo finalizar para continuar o scrit. Os processos ocorrem "paralelamente" à execução.
+O termo I/O Async quer dizer que qualquer leitura ou escrita de dados não espera seu processo finalizar para continuar o script. Os processos ocorrem "paralelamente" à execução.
 
 ## API do Nodejs
 
