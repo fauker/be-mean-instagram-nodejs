@@ -1,5 +1,6 @@
 # Node.js - Aula 02 - Exercício
 **user:** [fauker](https://github.com/fauker)
+
 **autor:** LUCAS DA SILVA MOREIRA
 
 ## Quais são os 4 verbos que utilizamos para o CRUD?
@@ -13,9 +14,11 @@ Para padronizar o retorno do servidor.
 ![](https://http.cat/100)
 
 2xx - Successful
+
 ![](https://http.cat/200)
 
 3xx - Redirection
+
 ![](https://http.cat/301)
 
 4xx - Bad Request
