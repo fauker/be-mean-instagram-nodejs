@@ -30,6 +30,9 @@ Para padronizar o retorno do servidor.
 ![](https://http.cat/599)
 
 ## Explique o que é cada parâmetro da função recebida no `createServer`.
+
+`createServer(function(request, response){});`
+
 **Request:** É a informação chegando no servidor através do navegador.
 
 **Response:** É a informação chegando no navegador através do servidor.
