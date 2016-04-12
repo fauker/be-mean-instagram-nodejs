@@ -30,9 +30,29 @@ Para padronizar o retorno do servidor.
 ![](https://http.cat/599)
 
 ## Explique o que é cada parâmetro da função recebida no `createServer`.
-**Request:** xxx
+**Request:** É a informação chegando no servidor através do navegador.
 
-**Response:** xxx
+**Response:** É a informação chegando no navegador através do servidor.
+
+Principais propriedades de cada um deles:
+
+**Request:**
+
+- Corpo do HTTP response;
+- Número de Bytes enviados pelo cliente;
+- Coleção de cabeçalhos;
+- Porta servidor utilizada;
+- Estado do servidor;
+- Nome do servidor;
+- Verificação de conexão SSL.
+
+**Response:**
+
+- Corpo do request HTTP;
+- Código da página para o corpo Request;
+- Versão do HTTP;
+- Caminho do HTTP;
+- Tamanho do Buffer;
 
 ## O que é e para que serve a Querystring?
 
