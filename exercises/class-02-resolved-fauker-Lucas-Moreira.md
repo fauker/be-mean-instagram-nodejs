@@ -67,7 +67,7 @@ Seu uso é simples, após a URL de determinada página, adicionamos o primeiro v
 
 ## Escreva no código do `server.js` uma forma de entregar um JSON de sucesso em 4 rotas diferentes:
 
-`
+```
 // server.js
 'use strict';
 
@@ -112,4 +112,4 @@ http.createServer(function(request, response){
   console.log('Servidor rodando em localhost:3000');
 });
 
-`
+```
