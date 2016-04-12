@@ -60,6 +60,8 @@ Principais propriedades de cada um deles:
 ## O que é e para que serve a Querystring?
 São nada mais do que conjuntos de pares/valores anexados a URL.
 
+Serve para alterarmos o estado de uma página web.
+
 Seu uso é simples, após a URL de determinada página, adicionamos o primeiro valor usando a seguinte sintaxe: ?Chave=Valor. Para passarmos mais de um conjunto, os mesmos devem ser concatenados usando o caractere coringa &.
 
 
