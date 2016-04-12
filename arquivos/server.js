@@ -15,15 +15,29 @@ const http = require('http')
     ;
 
 http.createServer(function(request, response){
-  if (request.url === '/api/v1') {
+  switch (request.url) {
+    case '/api/v1/pokemons/create':
       response.writeHead(200, {'Content-Type': 'application/json'});
       response.write(JSON.stringify(SUCCESS));
-      
-  } else {
+      break;
+    case '/api/v1/pokemons/read':
+      response.writeHead(200, {'Content-Type': 'application/json'});
+      response.write(JSON.stringify(SUCCESS));
+      break;
+    case '/api/v1/pokemons/update':
+      response.writeHead(200, {'Content-Type': 'application/json'});
+      response.write(JSON.stringify(SUCCESS));
+      break;
+    case '/api/v1/pokemons/delete':
+      response.writeHead(200, {'Content-Type': 'application/json'});
+      response.write(JSON.stringify(SUCCESS));
+      break;
+    default:
       response.writeHead(404, {'Content-Type': 'application/json; charset=utf-8'});
       response.write(JSON.stringify(ERROR));
+
+    response.end();
   }
-  response.end();      
 }).listen(3000, function(){
   console.log('Servidor rodando em localhost:3000');
 });
