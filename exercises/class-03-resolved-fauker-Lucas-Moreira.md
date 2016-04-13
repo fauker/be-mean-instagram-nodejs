@@ -16,20 +16,11 @@ informações no servidor.
 
 Comparação:
 
-|   |  GET | POST |
-|---|---|---|
-| Histórico  | Os parâmetros ficam no histórico do browser  | Os param.
-não são salvos no histórico do browser |
-|   |   |   |
-|   |   |   |
-|   |   |   |
-|   |   |   |
-|   |   |   |
-|   |   |   |
-|   |   |   |
-|   |   |   |
-|   |   |   |
-|   |   |   |
+Histórico:
+- GET: Os parâmetros são salvos no browser porque eles fazem parte da
+  URL.
+- POST: Os parâmetros não são salvos no browser.
+
 
 ## Crie um Pokemon na nossa API com seu nome, depois modifique seu nome pelo seu User do Github.
 
