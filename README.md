@@ -35,6 +35,29 @@ O termo I/O Async quer dizer que qualquer leitura ou escrita de dados não esper
 - [Exercício Solicitado](https://github.com/Webschool-io/be-mean-instagram/blob/master/Apostila/classes/nodejs/exercises/class-01.md)
 - [Exercício Resolvido](https://github.com/fauker/be-mean-instagram-nodejs/blob/master/exercises/class-01-resolved-fauker-lucas-moreira.md)
 
+# Aula 02
+
+## HTTP
+
+Verbos/métodos mais utilizados: `GET`, `POST`, `PUT`, `DELETE`
+
+## Status Codes
+
+São códigos de retorno HTTP padrão retornados pelo servidor.
+
+1xx - Informational
+
+2xx - Successful
+
+3xx - Redirection
+
+4xx - Client Error
+
+5xx - Internal Server Error
+
+## 
+
+##### Links da Aula
 
 
 
