@@ -16,11 +16,35 @@ informações no servidor.
 
 Comparação:
 
-Histórico:
+**Histórico**:
 - GET: Os parâmetros são salvos no browser porque eles fazem parte da
   URL.
 - POST: Os parâmetros não são salvos no browser.
 
+**Favoritos no navegador**:
+- GET: Pode ser adicionado em favoritos, no navegador.
+- POST: Não pode ser adicionado em favoritos, no navegador.
+
+**Tipos de dados suportados**:
+- GET: application/x-www-form-urlencoded
+- POST: multipart/form-data ou application/x-www-form-urlencoded
+
+**Cache**:
+- GET: Pode ser cacheado
+- POST: Não pode ser cacheado
+
+**Restrições no formato dos dados**:
+- GET: Apenas caracteres ASCII são permitidos
+- POST: Sem restrições. Arquivos binátios também são permitidos.
+
+**Usabilidade/Visibilidade**:
+- GET: Todas as informações são visíveis na URL, portanto não é
+  recomendado utilizar este método para enviar informações delicadas,
+  senhas etc.
+- POST: As informações são enviadas junto com a requisição HTTP,
+  portando nada fica visível na URL. Sendo assim, este método é o
+  recomendado para o envio de informações delicadas/senhas para o
+  servidor.
 
 ## Crie um Pokemon na nossa API com seu nome, depois modifique seu nome pelo seu User do Github.
 
