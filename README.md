@@ -55,15 +55,26 @@ São códigos de retorno HTTP padrão retornados pelo servidor.
 
 5xx - Internal Server Error
 
-## 
+## Função CreateServer
+
+`http.createServer(function(request, response) {});`
+
+Essa função recebe dois parâmetros: request e response.
+
+Request: dados enviados do navegador para o servidor
+
+Response: dados enviados do servidor para o navegador. É a resposta do
+servidor.
+
+## QueryString
+
+A **QueryString** é um modelo clássico de manutenção do estado da página. Elas são nada mais do que conjuntos de pares/valores anexados a URL, em diversos sites hoje em dia vemos o uso delas.
+
+Seu uso é simples, após a URL de determinada página, adicionamos o primeiro valor usando a seguinte sintaxe: **?Chave=Valor**. Para passarmos mais de um conjunto, os mesmos devem ser concatenados usando o caractere coringa &.
+
 
 ##### Links da Aula
 
-
-
-
-
-
-
-
-
+- [Vídeo da Aula](https://www.youtube.com/watch?v=mDtNcosGgiU)
+- [Exercício Solicitado](https://github.com/Webschool-io/be-mean-instagram/blob/master/Apostila/classes/nodejs/exercises/class-02.md)
+- [Exercício Resolvido](https://github.com/fauker/be-mean-instagram-nodejs/blob/master/exercises/class-02-resolved-fauker-Lucas-Moreira.md)
