@@ -205,3 +205,75 @@ HEADERS: {"server":"Cowboy","content-length":"0","connection":"close","x-powered
 ```
 ## Escolha uma **API externa** e crie um script para fazer um GET nela **mostrando o resultado com HTML**.
 
+```
+'use strict';
+
+const http = require('http');
+
+const options = {
+  host: 'api.redtube.com'
+, path: '/?data=redtube.Videos.searchVideos&search=Sasha%20Gray'
+};
+
+function callback(res) {
+  console.log('STATUS: ' + res.statusCode);
+  console.log('HEADERS: ' + JSON.stringify(res.headers));
+
+  let data = [];
+
+  res.setEncoding('utf8');
+  res.on('data', (chunk) =>  {
+    data += chunk;
+  });
+  res.on('end', () => {
+    var json = JSON.parse(data);
+    console.log('<html>');
+    console.log('<head></head>');
+    console.log('<body>');
+    console.log('<div>');
+    console.log(json.videos[0].video);
+    console.log('</div>');
+    console.log('</body>');
+    console.log('</html>');
+  })
+}
+
+const req = http.request(options, callback);
+
+req.on('error', (e) =>  {
+  console.log('ERROOOO: ' + e.message);
+});
+req.end();
+```
+
+```
+STATUS: 200
+HEADERS: {"server":"nginx","date":"Thu, 21 Apr 2016 13:41:52 GMT","content-type":"application/json;charset=utf-8","transfer-encoding":"chunked","connection":"close","set-cookie":["PHPSESSID=8ta1697inn11p57ponibo5g705; path=/","RNLBSERVERID=ded6281; path=/"],"expires":"Thu, 19 Nov 1981 08:52:00 GMT","cache-control":"no-store, no-cache, must-revalidate, post-check=0, pre-check=0","pragma":"no-cache"}
+<html>
+<head></head>
+<body>
+<div>
+{ duration: '11:24',
+  views: '574759',
+  video_id: '302038',
+  rating: '3.87',
+  ratings: '450',
+  title: 'Sasha Grey at Anatomie HD',
+  url: 'http://www.redtube.com/302038',
+  embed_url: 'http://embed.redtube.com/?id=302038',
+  default_thumb: 'http://img.l3.cdn.redtubefiles.com/_thumbs/0000302/0302038/0302038_012m.jpg',
+  thumb: 'http://img.l3.cdn.redtubefiles.com/_thumbs/0000302/0302038/0302038_012m.jpg',
+  publish_date: '2016-04-20 10:50:01',
+  tags:
+   [ { tag_name: 'Anal Sex' },
+     { tag_name: 'Brunette' },
+     { tag_name: 'Caucasian' },
+     { tag_name: 'Couple' },
+     { tag_name: 'Hairy' },
+     { tag_name: 'Pornstar' },
+     { tag_name: 'Uniform' } ],
+  stars: [ { star_name: 'Sasha Grey' } ] }
+</div>
+</body>
+</html>
+```
