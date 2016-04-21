@@ -48,6 +48,8 @@ Comparação:
 
 ## Crie um Pokemon na nossa API com seu nome, depois modifique seu nome pelo seu User do Github.
 
+**POST**
+
 ```
 'use strict';
 
@@ -101,6 +103,57 @@ Tamanho do postData 33
 STATUS: 201
 HEADERS: {"server":"Cowboy","connection":"close","x-powered-by":"Express","access-control-allow-origin":"*","content-type":"application/json; charset=utf-8","content-length":"82","etag":"W/\"52-aF+iYI+9imnEnoNvlnzrzQ\"","date":"Thu, 21 Apr 2016 13:05:28 GMT","via":"1.1 vegur"}
 Dados finalizados:  {"__v":0,"name":"Lucas Moreira","type":"student","_id":"5718d018cdd40a1100cf59a1"}
+```
+
+**PUT**
+
+```
+'use strict';
+
+const http = require('http');
+const querystring = require('querystring');
+const postData = querystring.stringify({
+        name: 'fauker'
+      });
+const options = {
+        host: 'webschool-io.herokuapp.com'
+      , method: 'PUT'
+      , path: '/api/pokemons/5718d018cdd40a1100cf59a1'
+      , headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        , 'Content-Length': postData.length
+        }
+      };
+
+function callback(res) {
+  console.log('STATUS: ' + res.statusCode);
+  console.log('HEADERS: ' + JSON.stringify(res.headers));
+
+  let data = '';
+
+  res.setEncoding('utf8');
+  res.on('data', (chunk) =>  {
+    data += chunk;
+  });
+  res.on('end', () => {
+    console.log('Dados finalizados: ', data)
+  })
+}
+
+const req = http.request(options, callback);
+
+req.on('error', (e) =>  {
+  console.log('ERROOOO: ' + e.message);
+});
+req.write(postData);
+req.end();
+```
+
+**Resposta:**
+
+```
+STATUS: 202
+HEADERS: {"server":"Cowboy","connection":"close","x-powered-by":"Express","access-control-allow-origin":"*","content-type":"application/json; charset=utf-8","content-length":"108","etag":"W/\"6c-MWWv9jU4vqlcL2ixcMLOUQ\"","date":"Thu, 21 Apr 2016 13:12:31 GMT","via":"1.1 vegur"}
 ```
 
 ## **Depois faça o DELETE**, criando o script para tal, colocando aqui a resposta.
