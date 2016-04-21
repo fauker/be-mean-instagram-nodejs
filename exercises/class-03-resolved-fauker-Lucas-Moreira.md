@@ -1,4 +1,4 @@
-# Node.js - Aula 02 - Exercício
+# Node.js - Aula 03 - Exercício
 **user:** [fauker](https://github.com/fauker)
 
 **autor:** LUCAS DA SILVA MOREIRA
@@ -12,7 +12,7 @@ De uma forma bem simples: `GET` é utilizado para requisitar dados sem
 alterá-los no servidor, enquanto `POST` é utilizado para inserir algo no
 servidor. Por exemplo: uma página de pesquisa deve utilizar `GET`,
 enquanto um formulário de cadastro deve utilizar `POST` para submeter as
-informações no servidor.
+informações ao servidor.
 
 Comparação:
 
@@ -47,6 +47,61 @@ Comparação:
   servidor.
 
 ## Crie um Pokemon na nossa API com seu nome, depois modifique seu nome pelo seu User do Github.
+
+```
+'use strict';
+
+const http = require('http');
+const querystring = require('querystring');
+const postData = querystring.stringify({
+        name: 'Lucas Moreira'
+      , type: 'student'
+      });
+console.log("postData", postData);
+console.log("Tamanho do postData", postData.length);
+const options = {
+        host: 'webschool-io.herokuapp.com'
+      , method: 'POST'
+      , path: '/api/pokemons'
+      , headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        , 'Content-Length': postData.length
+        }
+      };
+
+function callback(res) {
+  console.log('STATUS: ' + res.statusCode);
+  console.log('HEADERS: ' + JSON.stringify(res.headers));
+
+  let data = '';
+
+  res.setEncoding('utf8');
+  res.on('data', (chunk) =>  {
+    data += chunk;
+  });
+  res.on('end', () => {
+    console.log('Dados finalizados: ', data)
+  })
+}
+
+const req = http.request(options, callback);
+
+req.on('error', (e) =>  {
+  console.log('ERROOOO: ' + e.message);
+});
+req.write(postData);
+req.end();
+```
+
+**Resposta**:
+
+```
+postData name=Lucas%20Moreira&type=student
+Tamanho do postData 33
+STATUS: 201
+HEADERS: {"server":"Cowboy","connection":"close","x-powered-by":"Express","access-control-allow-origin":"*","content-type":"application/json; charset=utf-8","content-length":"82","etag":"W/\"52-aF+iYI+9imnEnoNvlnzrzQ\"","date":"Thu, 21 Apr 2016 13:05:28 GMT","via":"1.1 vegur"}
+Dados finalizados:  {"__v":0,"name":"Lucas Moreira","type":"student","_id":"5718d018cdd40a1100cf59a1"}
+```
 
 ## **Depois faça o DELETE**, criando o script para tal, colocando aqui a resposta.
 
