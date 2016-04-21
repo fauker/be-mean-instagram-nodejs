@@ -158,5 +158,50 @@ HEADERS: {"server":"Cowboy","connection":"close","x-powered-by":"Express","acces
 
 ## **Depois faça o DELETE**, criando o script para tal, colocando aqui a resposta.
 
+**DELETE**
+
+```
+'use strict';
+
+const http = require('http');
+const querystring = require('querystring');
+const options = {
+        host: 'webschool-io.herokuapp.com'
+      , method: 'delete'
+      , path: '/api/pokemons/5718d018cdd40a1100cf59a1'
+      , headers: {
+          'content-type': 'application/x-www-form-urlencoded'
+        }
+      };
+
+function callback(res) {
+  console.log('status: ' + res.statuscode);
+  console.log('headers: ' + json.stringify(res.headers));
+
+  let data = '';
+
+  res.setencoding('utf8');
+  res.on('data', (chunk) =>  {
+    data += chunk;
+  });
+  res.on('end', () => {
+    console.log('dados finalizados: ', data)
+  })
+}
+
+const req = http.request(options, callback);
+
+req.on('error', (e) =>  {
+  console.log('erroooo: ' + e.message);
+});
+req.end();  
+```
+
+***Resposta***
+
+```
+STATUS: 204
+HEADERS: {"server":"Cowboy","content-length":"0","connection":"close","x-powered-by":"Express","access-control-allow-origin":"*","date":"Thu, 21 Apr 2016 13:16:17 GMT","via":"1.1 vegur"}
+```
 ## Escolha uma **API externa** e crie um script para fazer um GET nela **mostrando o resultado com HTML**.
 
