@@ -93,4 +93,69 @@ Um pouco de prática com o módulo **http**.
 
 ## Callbacks
 
+Nas aulas de **callback** pude conhecer o estilo **continuation-passing
+style** de programação**, em que passamos por parâmetro para nossa
+função uma função de continuação, que é chamada de callback.
 
+## FyleSystem
+
+É um módulo nativo do **Node.js**. Ele manipula os diretórios estaticos
+do servidor.
+
+Métodos:
+
+- **writeFile**: escreve em um arquivo. Se o arquivo já existe, ele
+  apenas escreve no arquivo existente. Caso o arquivo não exista, ele
+  irá criar.
+
+```
+//forma síncrona
+
+var write = fs.writeFileSync('./file.txt', 'oi');
+
+//forma assíncrona
+
+fs.writeFile('./file.txt', 'Oie', function(err, result) {
+  if (err) throw err;
+  console.log(result);
+})
+```
+
+- **mkdir**: Manipular diretórios.
+
+```
+//cria um diretório
+//assync
+fs.mkdir('./euFuiCriadoComONode', function(err, result) {
+  if (err) throw err;
+  console.log(result);
+});
+
+//sync
+fs.mkdir('./euFuiCriadoDeFormaAssincronaComONode');
+```
+
+- **open**:
+
+```
+// r -> flag de apenas leitura
+fs.open('./hello.text', 'r', function(err, data) {})
+```
+
+- **readdir**: Lista os arquivos de um diretório.
+
+```
+fs.readdir('/.meusARquivos', function(err, files){});
+```
+
+- **readFile**: função para ler arquivos
+
+```
+fs.readFile('./arquivo', 'utf-8', function(err, data){});
+```
+
+- **rename**: renomeia um arquivo
+
+```
+fs.rename('./arquivo', './renomeado', function(err, data){});
+```
