@@ -97,7 +97,7 @@ Nas aulas de **callback** pude conhecer o estilo **continuation-passing
 style** de programação**, em que passamos por parâmetro para nossa
 função uma função de continuação, que é chamada de callback.
 
-## FyleSystem
+## FileSystem
 
 É um módulo nativo do **Node.js**. Ele manipula os diretórios estaticos
 do servidor.
@@ -159,3 +159,9 @@ fs.readFile('./arquivo', 'utf-8', function(err, data){});
 ```
 fs.rename('./arquivo', './renomeado', function(err, data){});
 ```
+
+##### Links da Aula
+
+- [Vídeo da Aula](https://www.youtube.com/watch?v=f9SE7Y0qYEg)
+- [Exercício Solicitado](https://github.com/Webschool-io/be-mean-instagram/blob/master/Apostila/classes/nodejs/exercises/class-04.md)
+- [Exercício Resolvido](https://github.com/fauker/be-mean-instagram-nodejs/blob/master/exercises/class-04-resolved-fauker-Lucas-Moreira.md)
