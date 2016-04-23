@@ -165,3 +165,27 @@ fs.rename('./arquivo', './renomeado', function(err, data){});
 - [Vídeo da Aula](https://www.youtube.com/watch?v=f9SE7Y0qYEg)
 - [Exercício Solicitado](https://github.com/Webschool-io/be-mean-instagram/blob/master/Apostila/classes/nodejs/exercises/class-04.md)
 - [Exercício Resolvido](https://github.com/fauker/be-mean-instagram-nodejs/blob/master/exercises/class-04-resolved-fauker-Lucas-Moreira.md)
+
+# Aula 05
+
+## NPM
+
+Gerenciador de pacotes do Node.js. O **NPM** trabalha através do arquivo
+**package.json**, que contém várias informações e dependências do projeto.
+
+- `npm init`: criará o arquivo **package.json**.
+
+- `npm install`: instala as dependências listadas no package.json
+  - `npm install -g ou -global *nome_do_modulo*`: instala globalmente
+  - `npm install --save ou -S`: instala o módulo localmente e insere o
+    mesmo no **package.json**
+  - `npm i --save modulo@versao`: instala uma versão em específico
+  - `npm i --production`: instala somente as dependências de produção
+  - `npm i --save-dev`: instala dependências que serão usadas apenas em
+    desenvolvimento
+  - `npm i --dev`: instala somente as dependências que serão usadas no
+    desenvolvimento
+  - `npm i --save-optional`: instala dependências que não interferem no
+    script do projeto
+
+- `npm run`: irá executar scripts
