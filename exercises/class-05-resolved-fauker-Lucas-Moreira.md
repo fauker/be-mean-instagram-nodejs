@@ -107,30 +107,65 @@ process.title
 
 ## Criar um arquivo
 ```
+var fs = require('fs');
 
+var write = fs.writeFileSync('file.txt', 'Oieee!!!!');
+
+ls
+createFile.js
+file.txt
 ```
 
 ## Ler um arquivo
 ```
+var fs = require('fs');
 
+fs.readFile('file.txt', 'utf-8', function(err, data) {
+  if (err) throw err;
+  console.log(data);
+});
+
+node readFile.js
+Oieee!!!!
 ```
 
 ## Editar conteúdo desse arquivo
 ```
+var fs = require('fs');
 
-```
+fs.readFile('file.txt', 'utf-8', function(err, data) {
+  if (err) throw err;
+  console.log('conteúdo antigo: ' + data);
+  var novoConteudo = 'Novo conteúdo';
+  fs.writeFileSync('file.txt', novoConteudo);
+});
 
-## Deletar arquivo
-```
-
+node editFile.js
+conteúdo antigo: Oieee!!!!
+cat file.txt
+Novo conteúdo%
 ```
 
 ## Renomear o arquivo
 ```
-
+node renameFile.js
+undefined
+ls
+createFile.js    readFile.js
+editFile.js      renameFile.js
+fileAlterado.txt
 ```
 
-## Desafio
+## Deletar arquivo
+```
+var fs = require('fs');
+
+fs.unlink('fileAlterado.txt', function(err) {
+  if (err) throw err;
+  console.log('Sucesso ao remover o arquivo fileAlterado.txt');
+});
+
+node deleteFile.js
+Sucesso ao remover o arquivo fileAlterado.txt
 ```
 
-```
