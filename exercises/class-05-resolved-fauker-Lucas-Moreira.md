@@ -97,10 +97,10 @@ var express = require('express');
 ```
 
 ## Explique como funciona e de um exemplo de `process`.
-```
 O `process` é um objeto global do `node` e pode ser acessado de qualquer
 lugar. É uma instância do `EventEmitter`.
 
+```
 process.title
 'node'
 ```
