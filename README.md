@@ -189,3 +189,23 @@ Gerenciador de pacotes do Node.js. O **NPM** trabalha através do arquivo
     script do projeto
 
 - `npm run`: irá executar scripts
+
+## Objetos Globais
+
+Podem ser chamados de qualquer módulo do Nodejs sem uma prévia
+importação `require`.
+
+Obs: o `nodejs` não possui variáveis globais. Uma variável criada dentro
+de um arquivo só poderá ser acessada dentro deste arquivo.
+
+Voltando aos **objetos globais**, estes são alguns exemplos:
+
+`__dirname`, `__filename`, `new Buffer('teste')`, `setTimeout(function())`,
+
+##### Links da Aula
+
+- [Vídeo da Aula parte 01](https://www.youtube.com/watch?v=Kg4RovUQWeg)
+- [Vídeo da Aula parte 02](https://www.youtube.com/watch?v=DD1XKyaq9NE)
+- [Exercício Solicitado](https://github.com/Webschool-io/be-mean-instagram/blob/master/Apostila/classes/nodejs/exercises/class-05.md)
+- [Exercício Resolvido](https://github.com/fauker/be-mean-instagram-nodejs/blob/master/exercises/class-05-resolved-fauker-Lucas-Moreira.md)
+
