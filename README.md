@@ -209,3 +209,85 @@ Voltando aos **objetos globais**, estes são alguns exemplos:
 - [Exercício Solicitado](https://github.com/Webschool-io/be-mean-instagram/blob/master/Apostila/classes/nodejs/exercises/class-05.md)
 - [Exercício Resolvido](https://github.com/fauker/be-mean-instagram-nodejs/blob/master/exercises/class-05-resolved-fauker-Lucas-Moreira.md)
 
+# Aula 06
+
+## Mongoose
+
+Os slides da aula 01 terminaram em validação.
+
+É um dos projetos mais utilizados quando trabalhamos
+com o MongoDb pois ele nos dá uma funcionalidade
+que não possuímos nativamente, que são os **Schemas**.
+
+### Schema
+
+É um dos projetos mais utilizados quando trabalhamos
+com o MongoDb pois ele nos dá uma funcionalidade
+que não possuímos nativamente.
+
+Como criar um Schema:
+
+```
+var mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost/be-mean-instagram');
+var Schema = mongoose.Schema;
+// Criação do Schema
+const pokemonSchema = new Schema({
+  name:  String,
+  description: String,
+  type:   String,
+  attack:   Number,
+  defense:   Number,
+  height:   Number
+});
+```
+
+Após fazer a conexão com o MongoDB, através do função **connect**, são
+disponibilizados os seguintes eventos:
+
+```
+mongoose.connection.on('connected', function () {
+  console.log('Mongoose default connection open to ' + dbURI);
+});
+mongoose.connection.on('error',function (err) {
+  console.log('Mongoose default connection error: ' + err);
+});
+mongoose.connection.on('disconnected', function () {
+  console.log('Mongoose default connection disconnected');
+});
+mongoose.connection.on('open', function () {
+  console.log('Mongoose default connection is open');
+});
+```
+
+E para finalizar finalizar a conexão com o banco quando o processo do
+Nodejs for finalizado:
+
+```
+process.on('SIGINT', function() {
+  mongoose.connection.close(function () {
+    console.log('Mongoose default connection disconnected through app termination');
+    process.exit(0);
+  });
+});
+```
+
+### Default
+
+Valor padrão que determinado atrituto da collection sempre terá.
+
+### Tipos de Dados
+
+Tipos de dados suportados pelo **mongoose**.
+
+```
+- String
+- Number
+- Date
+- Buffer
+- Boolean
+- Mixed
+- ObjectId
+- Array
+```
