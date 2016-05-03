@@ -433,4 +433,16 @@ Pokemon.remove(query, function (err, data) {
   if (err) return console.log('ERRO: ', err);
   return console.log('Deletou:', data);
 });
+
+Obs: o remove do mongoose é `multi: true`, ou seja, ele remove mais de
+um documento. O ideal ao utilizá-lo é sempre passando o id da coleção
+que se deseja remover.
 ```
+
+##### Links da Aula
+
+- [Vídeo da Aula parte 01](https://www.youtube.com/watch?v=O8odFa3dl-k)
+- [Vídeo da Aula parte 02](https://www.youtube.com/watch?v=02a_lo_KLwU)
+- [Vídeo da Aula parte 03](https://www.youtube.com/watch?v=XeLRYhrcKJo)
+- [Exercício Solicitado](https://github.com/Webschool-io/be-mean-instagram/blob/master/Apostila/classes/nodejs/exercises/class-06.md)
+- [Exercício Resolvido](https://github.com/fauker/be-mean-instagram-nodejs/blob/master/exercises/class-06-resolved-fauker-Lucas-Moreira.md)
