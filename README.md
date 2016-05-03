@@ -213,17 +213,11 @@ Voltando aos **objetos globais**, estes são alguns exemplos:
 
 ## Mongoose
 
-Os slides da aula 01 terminaram em validação.
-
 É um dos projetos mais utilizados quando trabalhamos
-com o MongoDb pois ele nos dá uma funcionalidade
+com o MongoDb, pois ele nos dá uma funcionalidade
 que não possuímos nativamente, que são os **Schemas**.
 
 ### Schema
-
-É um dos projetos mais utilizados quando trabalhamos
-com o MongoDb pois ele nos dá uma funcionalidade
-que não possuímos nativamente.
 
 Como criar um Schema:
 
@@ -290,4 +284,153 @@ Tipos de dados suportados pelo **mongoose**.
 - Mixed
 - ObjectId
 - Array
+```
+
+### Validação
+
+Antes de entrarmos em suas especificidades, vamos conhecer algumas regras:
+
+- Validação é definida no tipo do campo, no Schema;
+- Validação é uma peça interna do Middleware;
+- Validação ocorre quando um documento tenta ser salvo, após ter sido definido com seu padrão;
+- Validadores não são executados em valores indefinidos. A única exceção é a validação required;
+- Validação é assincronamente recursiva, quando você chamar a função `save` do *Model*, a validação dos sub-documentos é executado também. Se ocorrer um erro ele será enviado para o *callback* da função `save`;
+- Validação suporta a personalização completa.
+
+#### Validação Padrão
+
+Como já vimos anteriormente o Mongoose possui validações padrão para alguns tipos de campos, além disso todos os tipos também possui a validação de required. Porém alguns tipos possuem validadores mais específicos como:
+
+- Number: possui os validadores de max e min
+- String: possui os validadores de enum, match, maxlength e minlength
+
+**Obs.: Na aula 08 a parte de validações personalizadas será abordada
+melhor**
+
+### Model
+
+O Model é a implementação do Schema, sendo o objeto com o qual trabalhamos.
+
+var Model = mongoose.model('Model', schema);
+
+#### Save
+
+```
+const _schema = {
+  name:  String
+}
+const pokemonSchema = new Schema(_schema);
+const PokemonModel = mongoose.model('Pokemon', pokemonSchema);
+const dataModel = { name: 'Suissamon' };
+const Suissamon = new PokemonModel(dataModel);
+
+Suissamon.save(function (err, data) {
+  if (err) return console.log('ERRO: ', err);
+  return console.log('Inseriu:', data);
+})
+```
+
+Iremos sempre separar o JSON com os dados 
+do Model(dataModel) da sua criação 
+new PokemonModel(dataModel) para depois executar a função save, passando como parâmetro uma função de callback que irá sempre receber 2 parâmetros nessa ordem: erro(err) e retorno(data).
+
+#### Retrieve
+
+```
+const pokemonSchema = new Schema(_schema);
+const PokemonModel = mongoose.model('Pokemon', pokemonSchema);
+const query = {name: 'Pikachu', attack: {$gt: 90}};
+
+PokemonModel.find(query, function (err, data) {
+  if (err) return console.log('ERRO: ', err);
+  return console.log('Buscou:', data);
+});
+```
+
+Caso você queira limitar quais campos devem ser retornados basta passar como JSON 
+no segundo parâmetro.
+
+```
+const pokemonSchema = new Schema(_schema);
+const PokemonModel = mongoose.model('Pokemon', pokemonSchema);
+
+const query = {name: 'Pikachu', attack: {$gt: 90}};
+const fields = {name: 1};
+
+PokemonModel.find(query, fields, function (err, data) {
+  if (err) return console.log('ERRO: ', err);
+  return console.log('Buscou:', data);
+})
+```
+
+#### findOne
+
+```
+const pokemonSchema = new Schema(_schema);
+const PokemonModel = mongoose.model('Pokemon', pokemonSchema);
+
+const query = {};
+
+PokemonModel.findOne(query, function (err, data) {
+  if (err) return console.log('ERRO: ', err);
+  return console.log('Buscou:', data);
+})
+```
+
+#### findById
+
+```
+const pokemonSchema = new Schema(_schema);
+const PokemonModel = mongoose.model('Pokemon', pokemonSchema);
+
+const id = '564220f0613f89ac53a7b5d0';
+
+PokemonModel.findById(id, function (err, data) {
+  if (err) return console.log('ERRO: ', err);
+  return console.log('Buscou:', data);
+})
+```
+
+#### update
+
+```
+const _schema = {
+      name:  String,
+      description: String,
+      type:   String,
+      attack:   Number,
+      defense:   Number,
+      height:   Number
+    };
+const PokemonSchema = new Schema(_schema);
+const Pokemon = mongoose.model('Pokemon', PokemonSchema);
+const query = {name: /pikachu/i};
+const mod = {attack: 666};
+
+Pokemon.update(query, mod, function (err, data) {
+  if (err) return console.log('ERRO: ', err);
+  return console.log('Alterou:', data);
+});
+```
+
+#### delete
+
+```
+const Schema = mongoose.Schema;
+const _schema = {
+      name:  String,
+      description: String,
+      type:   String,
+      attack:   Number,
+      defense:   Number,
+      height:   Number
+    };
+const PokemonSchema = new Schema(_schema);
+const Pokemon = mongoose.model('Pokemon', PokemonSchema);
+const query = {_id: '569b27ebfdafdac00914d495'};
+
+Pokemon.remove(query, function (err, data) {
+  if (err) return console.log('ERRO: ', err);
+  return console.log('Deletou:', data);
+});
 ```
