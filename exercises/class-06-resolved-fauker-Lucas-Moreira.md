@@ -171,6 +171,223 @@ Pokemons Inseridos:  [ { _id: 572974fec3c044ae57196a32,
 
 ## Busque **todos** os Pokemons com `attack > 50` e `height > 0.5`:
 
+```
+require('./config');
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
+var _schema = {
+  name:  String,
+  description: String,
+  type:   String,
+  attack:   Number,
+  defense:   Number,
+  height:   Number
+};
+
+var pokemonSchema = new Schema(_schema);
+var PokemonModel = mongoose.model('Pokemon', pokemonSchema);
+var query = {$and: [{attack: {$gt: 50}}, {height: {$gt: 0.5}}]};
+
+PokemonModel.find(query, function (err, data) {
+  if (err) return console.log('ERRO: ', err);
+  return console.log('Buscou:', data);
+});
+```
+
+Resultado:
+
+```
+Buscou: [ { __v: 0,
+    height: 1,
+    defense: 50,
+    attack: 100,
+    type: 'fogo',
+    description: 'Um pokemon muito bolado',
+    name: 'LucasMon',
+    _id: 572974fec3c044ae57196a32 } ]
+
+ lucasmore
+```
+
 ## Altere, **inserindo**, o Pokemon `Nerdmon` com `attack` igual a 49 e com os valores dos outros campos a sua escolha.
 
+Resultado:
+
+```
+require('./config');
+
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
+var _schema = {
+  name:  String,
+  description: String,
+  type:   String,
+  attack:   Number,
+  defense:   Number,
+  height:   Number
+};
+
+var pokemonSchema = new Schema(_schema);
+var PokemonModel = mongoose.model('Pokemon', pokemonSchema);
+
+var query = {name: 'Nerdmon'};
+var mod = {
+  $setOnInsert: {
+    name: 'Nerdmon',
+    description: 'Pokemon mt nerd',
+    type: 'fogo',
+    attack: 49,
+    defense: 50,
+    height: 100
+  }
+};
+var options = {upsert: true};
+
+PokemonModel.update(query, mod, options, function(err, data) {
+  if (err) return console.log(err);
+  console.log('Pokemon Inserido com Upsert: ', data);
+});
+```
+
+```
+Pokemon Inserido com Upsert:  { ok: 1,
+  nModified: 0,
+  n: 1,
+  upserted: [ { index: 0, _id: 57297a013b4cb9a31a868f50 } ] }
+```
+
+Consulta no MongoDB:
+
+```
+var query = {name: 'Nerdmon'}
+
+db.pokemons.find(query)
+{
+  "_id": ObjectId("57297a013b4cb9a31a868f50"),
+    "name": "Nerdmon",
+    "description": "Pokemon mt nerd",
+    "type": "fogo",
+    "attack": 49,
+    "defense": 50,
+    "height": 100
+}
+```
+
 ## Remova **todos** os Pokemons com `attack` **acima de 50**.
+
+```
+require('./config');
+
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
+var _schema = {
+  name:  String,
+  description: String,
+  type:   String,
+  attack:   Number,
+  defense:   Number,
+  height:   Number
+};
+
+var pokemonSchema = new Schema(_schema);
+var PokemonModel = mongoose.model('Pokemon', pokemonSchema);
+var query = {attack: {$gt: 50}};
+
+PokemonModel.remove(query, function(err, data) {
+  if (err) return console.log(err);
+  console.log('Pokemon Excluídos: ', data);
+});
+```
+
+Resultado:
+
+```
+Pokemon Excluídos:  { result: { ok: 1, n: 2 },
+  connection:
+   EventEmitter {
+     domain: null,
+     _events:
+      { close: [Object],
+        error: [Object],
+        timeout: [Object],
+        parseError: [Object],
+        connect: [Function] },
+     _eventsCount: 5,
+     _maxListeners: undefined,
+     options:
+      { socketOptions: {},
+        auto_reconnect: true,
+        host: 'localhost',
+        port: 27017,
+        cursorFactory: [Object],
+        reconnect: true,
+        emitError: true,
+        size: 5,
+        disconnectHandler: [Object],
+        bson: {},
+        messageHandler: [Function],
+        wireProtocolHandler: [Object] },
+     id: 0,
+     logger: { className: 'Connection' },
+     bson: {},
+     tag: undefined,
+     messageHandler: [Function],
+     maxBsonMessageSize: 67108864,
+     port: 27017,
+     host: 'localhost',
+     keepAlive: true,
+     keepAliveInitialDelay: 0,
+     noDelay: true,
+     connectionTimeout: 0,
+     socketTimeout: 0,
+     destroyed: false,
+     domainSocket: false,
+     singleBufferSerializtion: true,
+     serializationFunction: 'toBinUnified',
+     ca: null,
+     cert: null,
+     key: null,
+     passphrase: null,
+     ssl: false,
+     rejectUnauthorized: false,
+     checkServerIdentity: true,
+     responseOptions: { promoteLongs: true },
+     flushing: false,
+     queue: [],
+     connection:
+      Socket {
+        _connecting: false,
+        _hadError: false,
+        _handle: [Object],
+        _parent: null,
+        _host: 'localhost',
+        _readableState: [Object],
+        readable: true,
+        domain: null,
+        _events: [Object],
+        _eventsCount: 8,
+        _maxListeners: undefined,
+        _writableState: [Object],
+        writable: true,
+        allowHalfOpen: false,
+        destroyed: false,
+        bytesRead: 250,
+        _bytesDispatched: 231,
+        _sockname: null,
+        _pendingData: null,
+        _pendingEncoding: '',
+        _idleNext: null,
+        _idlePrev: null,
+        _idleTimeout: -1,
+        read: [Function],
+        _consuming: true },
+     writeStream: null,
+     hashedName: '29bafad3b32b11dc7ce934204952515ea5984b3c',
+     buffer: null,
+     sizeOfMessage: 0,
+     bytesRead: 0,
+     stubBuffer: null } }
+```
