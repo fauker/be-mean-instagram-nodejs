@@ -94,6 +94,81 @@ Salvou a pessoa: { _id: 5729623d0c29593454bd65f7,
 
 ## Cadastre 3 pokemons **de uma só vez**:
 
+```
+require('./config');
+
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
+var _schema = {
+  name:  String,
+  description: String,
+  type:   String,
+  attack:   Number,
+  defense:   Number,
+  height:   Number
+};
+
+var pokemonSchema = new Schema(_schema);
+var PokemonModel = mongoose.model('Pokemon', pokemonSchema);
+var dataModel = [{
+  name: 'LucasMon',
+  description: 'Um pokemon muito bolado',
+  type: 'fogo',
+  attack: 100,
+  defense: 50,
+  height: 1
+}, {
+  name: 'AmigoMon',
+  description: 'Um brother',
+  type: 'agua',
+  attack: 200,
+  defense: 10,
+  height: 0.4
+}, {
+  name: 'NodeMon',
+  description: 'Sinixtro',
+  type: 'fogo',
+  attack: 50,
+  defense: 50,
+  height: 20
+}];
+
+PokemonModel.create(dataModel, function(err, data) {
+  if (err) return console.log(err);
+  console.log('Pokemons Inseridos: ', data);
+});
+```
+
+Resultado:
+
+```
+Pokemons Inseridos:  [ { _id: 572974fec3c044ae57196a32,
+    height: 1,
+    defense: 50,
+    attack: 100,
+    type: 'fogo',
+    description: 'Um pokemon muito bolado',
+    name: 'LucasMon',
+    __v: 0 },
+  { _id: 572974fec3c044ae57196a33,
+    height: 0.4,
+    defense: 10,
+    attack: 200,
+    type: 'agua',
+    description: 'Um brother',
+    name: 'AmigoMon',
+    __v: 0 },
+  { _id: 572974fec3c044ae57196a34,
+    height: 20,
+    defense: 50,
+    attack: 50,
+    type: 'fogo',
+    description: 'Sinixtro',
+    name: 'NodeMon',
+    __v: 0 }]
+```
+
 ## Busque **todos** os Pokemons com `attack > 50` e `height > 0.5`:
 
 ## Altere, **inserindo**, o Pokemon `Nerdmon` com `attack` igual a 49 e com os valores dos outros campos a sua escolha.
