@@ -446,3 +446,56 @@ que se deseja remover.
 - [Vídeo da Aula parte 03](https://www.youtube.com/watch?v=XeLRYhrcKJo)
 - [Exercício Solicitado](https://github.com/Webschool-io/be-mean-instagram/blob/master/Apostila/classes/nodejs/exercises/class-06.md)
 - [Exercício Resolvido](https://github.com/fauker/be-mean-instagram-nodejs/blob/master/exercises/class-06-resolved-fauker-Lucas-Moreira.md)
+
+# Aula 07
+
+## Eventos
+
+Muitos objetos do Node.js são capazes de emitir eventos, ou seja, eles são “Eventemiters”.
+
+Eventos podem ser nominados de acordo com a necessidade de cada função, contudo eles seguem um padrão para emissão (emit) e escuta (listener) de eventos.
+
+```
+obj.emit(“event:name”, value)
+obj.on(“event:name”, action(value){})
+```
+
+Para emitirmos eventos em módulos criados por nós, devemos herdar o
+**EventEmitter** da seguinte forma:
+
+```
+'use strict';
+
+const EventEmitter = require('events').EventEmitter;
+const util = require('util');
+
+function User() {
+      EventEmitter.call(this);
+}
+
+util.inherits(User, EventEmitter);
+```
+
+### Eventos no Mongoose
+
+Todo model do Mongoose é um EventEmitter.
+
+Um model pode executar tarefas antes e/ou quando for executar alguma função, como: save, create, find ou ou  qualquer função interna. Para isso, deve-se escutar os eventos **pre** e **post** do Mongoose.
+
+## Promises
+
+É uma abstração para trabalhar com código assíncrono de forma elegante, organizada e simplificada. 
+
+É composta por três estados básicos:
+
+- pendente: quando ainda está executando.
+
+- realizada / fulfilled: quando ela termina e tem um resultado de sucesso.
+
+- rejeitada / reject: quando termina e tem algum erro;
+
+##### Links da Aula
+
+- [Vídeo da Aula](https://www.youtube.com/watch?v=i6h1A-l11-k)
+- [Exercício Solicitado](https://github.com/Webschool-io/be-mean-instagram/blob/master/Apostila/classes/nodejs/exercises/class-07.md)
+- [Exercício Resolvido](https://github.com/fauker/be-mean-instagram-nodejs/blob/master/exercises/class-07-resolved-fauker-Lucas-Moreira.md)
