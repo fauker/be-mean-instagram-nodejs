@@ -499,3 +499,207 @@ Um model pode executar tarefas antes e/ou quando for executar alguma função, c
 - [Vídeo da Aula](https://www.youtube.com/watch?v=i6h1A-l11-k)
 - [Exercício Solicitado](https://github.com/Webschool-io/be-mean-instagram/blob/master/Apostila/classes/nodejs/exercises/class-07.md)
 - [Exercício Resolvido](https://github.com/fauker/be-mean-instagram-nodejs/blob/master/exercises/class-07-resolved-fauker-Lucas-Moreira.md)
+
+# Aula 08 
+
+## Mongoose e Arquitetura Atômica
+
+A Arquitetura Atômica no Mongoose a forma em que separamos seus arquivos/contextos como:
+
+- validação;
+- campo;
+- schema;
+- model;
+
+A fim de facilitar seu re-uso e manutenção.
+
+### Validação Customizada
+
+Para criar uma validação customizada é bem simples, basta passar um objeto para o atributo validate do seu campo, no Schema:
+
+```
+age: {
+  type: Number,
+  validate: {
+    validator: function(v) {
+      return v >= 18;
+    },
+    message: 'Sua idade({VALUE}) não é permitida!'
+  }
+}
+```
+
+Validadores sempre recebem o valor para validar como seu primeiro argumento e devem 
+retornar um valor booleano. Retornando false significa que a validação falhou.
+
+Para fazer a validação basta chamar a função validateSync(), do campo a ser validado.
+
+### Setters
+
+Setters permitem que você transforme os dados originais antes que cheguem ao documento.
+
+```
+function toLower (v) {
+  return v.toLowerCase();
+}
+
+const UserSchema = new Schema({
+  email: { type: String, set: toLower } 
+});
+```
+
+irá jogar o e-mail informado para minúsculo antes de salvar no MongoDB.
+
+### Getters
+
+Getters permitem que você transforme a representação dos dados, uma vez que é transformado a partir do documento para o valor que você vê.
+
+```
+function apenasMaiusculas (v) {
+  return v.toUpperCase();
+}
+
+const BlogPostSchema = new Schema({
+  title: { type: String, get: apenasMaiusculas }
+, body: String
+, comments: [CommentsSchema]
+});
+```
+
+irá trazer o campo título todo em maiúsculo, SEM ALTERAR O VALOR ORIGINAL.
+
+### Virtuals
+
+São campos virtuais que não são salvos no MongoDB. Por exemplo:
+
+```
+PersonSchema
+.virtual('name.full')
+.get(function () {
+  return this.name.first + ' ' + this.name.last;
+});
+
+Person.findById('569e513f7672012c28da89f1', (err, data) => {
+  if (err) return console.log('Erro:', err);
+  return console.log('Nome completo: ', data.name.full);
+});
+```
+
+Retornando:
+
+Nome completo: Jean Suissa
+
+### Embedded Documents
+
+Documentos incorporados(embedded) desfrutam dos mesmos recursos que os Models. Sempre que ocorrer um erro ele irá para o callback do save().
+
+Adicionando Embedded Documents:
+
+```
+const CommentsSchema = new Schema({
+  title: String,
+  body: String,
+  date: Date
+});
+
+const BlogPostSchema = new Schema({
+  title: String,
+  body: String,
+  comments: [CommentsSchema]
+});
+
+const BlogPostModel = mongoose.model('BlogPost', BlogPostSchema);
+
+const post = {
+  title: 'Primeiro POST'
+, body: 'Post inicial do blog UEBAAA'
+, date: Date.now()
+}
+const comment = {
+  title: 'Comentei aqui'
+, body: 'Tá comentando meu fiiiii!'
+, date: Date.now()
+};
+const BlogPostModel = mongoose.model('BlogPost', BlogPostSchema);
+const BlogPost = new BlogPostModel(post);
+
+BlogPost.comments.push(comment);
+BlogPost.save(function (err, data) {
+  if (err) return console.log('Erro:', err);
+  return console.log('Sucesso:', data);
+});
+```
+
+Para remover:
+
+```
+const BlogPostModel = mongoose.model('BlogPost', BlogPostSchema);
+const BlogPost = new BlogPostModel(post);
+const id = '569e300ad1455a8326c9aa91';
+
+BlogPostModel.findById(id, function (err, post) {
+
+  if (err) return console.log('Erro:', err);
+  console.log('post.comments', post.comments)
+  post.comments[0].remove();
+  post.save(function (err, data) {
+    if (err) return console.log('Erro interno:', err);
+    return console.log('Sucesso:', data);
+  });
+});
+```
+
+Buscando o Embedded Document por id:
+
+```
+const BlogPostModel = mongoose.model('BlogPost', BlogPostSchema);
+const BlogPost = new BlogPostModel(post);
+const id = '569e300ad1455a8326c9aa91';
+
+BlogPostModel.findById(id, function (err, post) {
+
+  if (err) return console.log('Erro:', err);
+  console.log('post.comments', post.comments)
+  post.comments[0].remove();
+  post.save(function (err, data) {
+    if (err) return console.log('Erro interno:', err);
+    return console.log('Sucesso:', data);
+  });
+});
+```
+
+### Mongoose Plugins
+
+Os Schemas no Mongoose são passíveis do uso de Plugins para adicionarmos campos aos schemas/models de uma forma flexível.
+
+Criando um plugin:
+
+```
+'use strict';
+
+function timestemp (schema, options) {
+  schema.add({created_at : {type : Date, default  : Date.now()}});
+  schema.add({update_at  : {type : Date, default : Date.now()}});
+}
+
+module.exports = timestemp;
+```
+
+Anexando ao Schema:
+
+```
+var mongoose  = require('mongoose'),
+    Schema    = mongoose.Schema,
+    timestemp = require('../plugins/timestemp');
+
+var bloogPost = new Schema({
+  id    : Schema.ObjectId,
+  title : {type : String, required : true},
+  body  : {type : String, required : true}
+});
+bloogPost.plugin(timestemp);
+module.exports = mongoose.model('Post', bloogPost);
+```
+
+### Populate
+
