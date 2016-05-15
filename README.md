@@ -701,5 +701,81 @@ bloogPost.plugin(timestemp);
 module.exports = mongoose.model('Post', bloogPost);
 ```
 
-### Populate
+### Indexes
+
+Formas de se definir indexes:
+
+```
+const userSchema = new Schema({
+  name: String,
+  email: String,
+  created_at: { type: String, , default: Date.now, index: true }
+});
+```
+
+ou
+
+```
+userSchema.index({ name: 1, type: -1 });
+```
+Ordem: 
+
+1: ascendente
+-1: descentente
+
+### Methods
+
+Podemos definir métodos para o nosso **Schema** da seguinte forma:
+
+```
+const _schema = {
+  name:  String, description: String, type: String, attack: Number, defense: Number, height: Number
+};
+const PokemonSchema = new Schema(_schema);
+
+PokemonSchema.methods.findSimilarType = function (cb) {
+  return this.model('Pokemon').find({ type: this.type }, cb);
+};
+const Pokemon = mongoose.model('Pokemon', PokemonSchema);
+const poke = new Pokemon({ name: 'Teste', type: 'inseto' });
+
+poke.findSimilarType(function (err, data) {
+  if (err) return console.log('Erro:', err);
+  return data.forEach((pokemon) => console.log('pokemon: ', pokemon));
+})
+```
+
+```
+Como retornamos o find, que é uma instância de *Query*, na função findSimilarType podemos escrever a busca dessa forma:
+
+poke
+.findSimilarType()
+.where('defense').gt(50)
+.limit(2)
+.exec(function (err, data) {
+  if (err) return console.log('Erro:', err);
+  return data.forEach((pokemon) => console.log('pokemon: ', pokemon));
+});
+```
+
+### Statics
+
+São métodos que sempre estarão disponíveis em nosso Model, sem que seja preciso o instanciamos.
+
+Ex:
+
+```
+const PokemonSchema = new Schema(_schema);
+
+PokemonSchema.statics.search = function (name, cb) {
+  return this.where('name', new RegExp(name, 'i')).exec(cb);
+};
+
+const Pokemon = mongoose.model('Pokemon', PokemonSchema);
+
+Pokemon.search('caterpie', function (err, data) {
+  if (err) return console.log('Erro:', err);
+  return data.forEach((pokemon) => console.log('pokemon: ', pokemon));
+});
+```
 
