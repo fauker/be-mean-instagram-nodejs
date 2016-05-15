@@ -779,3 +779,7 @@ Pokemon.search('caterpie', function (err, data) {
 });
 ```
 
+### Mongoose Middlewares
+
+Middleware são conhecido por usarem as funções e pre e post , elas são chamada de forma assíncrona durante a execução de um model, eles trabalhão a nível de schema e são muito ótimos para serem usados com plugins, como visto na aula de plugins.
+
