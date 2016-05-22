@@ -197,5 +197,140 @@ SALVOU!!! { _id: 573fbcd04029bda5119dbcee,
 ## 3. Dê 3 exemplos diferentes, para cada, utilizando as funções:
 
 - findAndModify
+Primeiro Exemplo
+```
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/be-mean-instagram');
+const Schema = mongoose.Schema;
+
+const _schema = {
+  name: String,
+  description: String,
+  type: String,
+  attack: Number,
+  defense: Number,
+  height: Number
+}
+
+const PokemonSchema = new Schema(_schema);
+
+PokemonSchema.statics.findAndModify = function (query, sort, doc, options, callback) {
+  return this.collection.findAndModify(query, sort, doc, options, callback);
+};
+const PokemonModel = mongoose.model('Pokemon', PokemonSchema);
+
+PokemonModel.findAndModify({name: /nodemon/i}, [], {type: 'agua'}, {multi: true}, (err, data) => {
+  if (err) return console.log('ERRO:', err);
+  console.log('DATA:', data);
+});
+```
+Resultado
+```
+DATA: { lastErrorObject: { updatedExisting: true, n: 1 },
+  value:
+   { _id: 572974fec3c044ae57196a34,
+     name: 'NodeMon',
+     description: 'Sinixtro',
+     type: 'fogo',
+     attack: 50,
+     defense: 50,
+     height: 20,
+     __v: 0 },
+  ok: 1 }
+
+```
+Segundo Exemplo:
+```
+PokemonModel.findAndModify({name: /pokemon número 4/i}, [], {attack: 100, descricao: 'Descricao muito bolada do poke de número 4'}, {}, (err, data) => {
+  if (err) return console.log('ERRO:', err);
+  console.log('DATA:', data);
+});
+```
+Resultado:
+```
+DATA: { lastErrorObject: { updatedExisting: true, n: 1 },
+  value:
+   { _id: 573a88c30dde8b16f9e2bba3,
+     name: 'Pokemon número 4',
+     description: 'Descrição do poke de número 4',
+     attack: '64',
+     __v: 0 },
+  ok: 1 }
+```
+Terceiro exemplo:
+```
+PokemonModel.findAndModify({name: /pokemon número 2/i}, [], {descricao: 'Este é o segundo poke!!!'}, {}, (err, data) => {
+  if (err) return console.log('ERRO:', err);
+  console.log('DATA:', data);
+});
+```
+Resultado:
+```
+DATA: { lastErrorObject: { updatedExisting: true, n: 1 },
+  value:
+   { _id: 573a88c30dde8b16f9e2bba1,
+     name: 'Pokemon número 2',
+     description: 'Descrição do poke de número 2',
+     attack: '62',
+     __v: 0 },
+  ok: 1 }
+```
 - findOneAndUpdate
+Primeiro Exemplo:
+```
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/be-mean-instagram');
+const Schema = mongoose.Schema;
+
+const _schema = {
+  name: String,
+  description: String,
+  type: String,
+  attack: Number,
+  defense: Number,
+  height: Number
+}
+
+const PokemonSchema = new Schema(_schema);
+const PokemonModel = mongoose.model('Pokemon', PokemonSchema);
+
+PokemonModel.findOneAndUpdate({name: /pokemon número 3/i}, {attack: 1000}, {}, (err, data) => {
+  if (err) return console.log('err', err);
+  console.log('data', data);
+});
+```
+Resultado:
+```
+data { __v: 0,
+  attack: 63,
+  description: 'Descrição do poke de número 3',
+  name: 'Pokemon número 3',
+  _id: 573a88c30dde8b16f9e2bba2 }
+```
+Segundo exemplo:
+```
+PokemonModel.findOneAndUpdate({type: 'agua'}, {type: 'raio'}, {}, (err, data) => {
+  if (err) return console.log('err', err);
+  console.log('data', data);
+});
+```
+Resultado:
+```
+data { type: 'agua', _id: 572974fec3c044ae57196a34 }
+```
+Terceiro Exemplo:
+```
+PokemonModel.findOneAndUpdate({name: 'Pokemon número 3'}, {type: 'raio'}, {}, (err, data) => {
+  if (err) return console.log('err', err);
+  console.log('data', data);
+});
+```
+Resultado:
+```
+data { __v: 0,
+  attack: 1000,
+  description: 'Descrição do poke de número 3',
+  name: 'Pokemon número 3',
+  _id: 573a88c30dde8b16f9e2bba2 }
+```
 - findOneAndRemove
