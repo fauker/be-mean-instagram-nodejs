@@ -197,6 +197,7 @@ SALVOU!!! { _id: 573fbcd04029bda5119dbcee,
 ## 3. Dê 3 exemplos diferentes, para cada, utilizando as funções:
 
 - findAndModify
+
 Primeiro Exemplo
 ```
 const mongoose = require('mongoose');
@@ -276,6 +277,7 @@ DATA: { lastErrorObject: { updatedExisting: true, n: 1 },
   ok: 1 }
 ```
 - findOneAndUpdate
+
 Primeiro Exemplo:
 ```
 const mongoose = require('mongoose');
@@ -334,3 +336,62 @@ data { __v: 0,
   _id: 573a88c30dde8b16f9e2bba2 }
 ```
 - findOneAndRemove
+
+Primeiro exemplo:
+```
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/be-mean-instagram');
+const Schema = mongoose.Schema;
+
+const _schema = {
+  name: String,
+  description: String,
+  type: String,
+  attack: Number,
+  defense: Number,
+  height: Number
+}
+
+const PokemonSchema = new Schema(_schema);
+const PokemonModel = mongoose.model('Pokemon', PokemonSchema);
+
+PokemonModel.findOneAndRemove({name: 'Pokemon número 3'}, (err, data) => {
+  if (err) return console.log('err', err);
+  console.log('data', data);
+});
+```
+Resultado:
+```
+data { type: 'raio',
+  __v: 0,
+  attack: 1000,
+  description: 'Descrição do poke de número 3',
+  name: 'Pokemon número 3',
+  _id: 573a88c30dde8b16f9e2bba2 }
+```
+Segundo exemplo:
+```
+PokemonModel.findOneAndRemove({name: 'Pokemon número 1'}, (err, data) => {
+  if (err) return console.log('err', err);
+  console.log('data', data);
+});
+```
+Resultado
+```
+data { __v: 0,
+  attack: 61,
+  description: 'Descrição do poke de número 1',
+  name: 'Pokemon número 1',
+  _id: 573a88c30dde8b16f9e2bba0 }
+```
+Terceiro exemplo:
+```
+PokemonModel.findOneAndRemove({type: 'raio'}, (err, data) => {
+  if (err) return console.log('err', err);
+  console.log('data', data);
+});
+```
+Resultado
+```
+{ type: 'raio', _id: 572974fec3c044ae57196a34 }
+```
